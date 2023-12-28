@@ -1,0 +1,22 @@
+# GitHub Actions workflow Testing
+name: Workflow1
+run-name: Checking code 
+on: [push]
+jobs:
+  check-node-version:
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        node-version: ['18.19.0']
+
+    runs-on: ${{ matrix.os }}       
+
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-node@v3
+      with:
+        node-version: ${{ matrix.node-version }}
+
+    - name: Install dependencies
+      run: npm install
+    
