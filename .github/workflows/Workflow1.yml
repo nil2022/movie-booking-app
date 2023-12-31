@@ -3,7 +3,7 @@ name: Workflow1
 run-name: Checking code 
 on: [push]
 jobs:
-  check-node-version:
+  check-for-bugs:
     strategy:
       matrix:
         os: [ubuntu-latest]
