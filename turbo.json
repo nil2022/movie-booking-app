@@ -1,10 +1,10 @@
 {
   "$schema": "https://turbo.build/schema.json",
-  "globalDependencies": ["**/.env.*local"],
+  "globalEnv": ["PORT"],
   "pipeline": {
     "build": {
       "dependsOn": ["^build"],
-      "outputs": [".next/**", "!.next/cache/**"]
+      "outputs": ["dist/**"]
     },
     "lint": {
       "dependsOn": ["^lint"]
@@ -12,6 +12,10 @@
     "dev": {
       "cache": false,
       "persistent": true
+    },
+    "preview": {
+      "dependsOn": ["^build"],
+      "inputs": ["dist/**"]
     }
   }
 }
