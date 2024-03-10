@@ -8,16 +8,16 @@ export default defineConfig(async ({ mode }) => {
   return {
     server: {
       port: 3000,
-      proxy: {
-        "/api/v1": {
-          target: `${env.VITE_CRM_BACKEND_URL}`,
-          changeOrigin: true,
-        },
-      },
-      cors: true,
-    },
-    define: {
-      VITE_CRM_BACKEND_URL: JSON.stringify(env.VITE_CRM_BACKEND_URL),
+      // proxy: {
+      //   "/api/v1": {
+      //     target: `${env.VITE_CRM_BACKEND_URL}`,
+      //     changeOrigin: true,
+      //   },
+      // },
+      cors:{
+        origin: `${env.VITE_CORS_ORIGIN}` || 'http://localhost:3001',
+        credentials: true,
+      }
     },
     build: {
       outDir: "dist",

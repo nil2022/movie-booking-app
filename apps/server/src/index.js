@@ -1,21 +1,22 @@
 import express from "express";
+import logger from 'morgan';
+import connectDatabase from "./config/dbConnect.js";
+import authRoutes from "./routes/auth.routes.js";
 
 const app = express();
-const router = express.Router();
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(express.json({ limit: '16kb' }));
+app.use(express.urlencoded({ extended: true, limit: '16kb' }));
+app.use(logger('dev'));
 
-const PORT = process.env.PORT || 4000;
+const PORT = process.env.SERVER_PORT || 4000;
 
-app.use("/api/v1", router);
+app.use("/api/v1/auth", authRoutes);
 
-router.get("/test", (req, res) => {
-  res.send("Testing Router Route");
-});
-
+/***************************************/
 /********* HEALTH CHECK ROUTE **********/
-app.get("/health", (req, res) => {
+/***************************************/
+app.get("/healthz", (req, res) => {
   console.log("Server is up and running");
   res.status(200).json({
     success: true,
@@ -23,6 +24,15 @@ app.get("/health", (req, res) => {
   });
 });
 
-app.listen(PORT, () => {
-  console.log(`Server is running on PORT: ${PORT}`);
-});
+/** Connect to MongoDB Database ***/
+connectDatabase()
+.then(() => {
+  app.listen(PORT, () => {
+    console.log(`Server is running on PORT: ${PORT}`);
+  });
+})
+/** When connection failed to connect, it will throw an error */
+.catch((error) => {
+  console.log('Could not connect to database', error);
+})
+

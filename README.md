@@ -6,7 +6,7 @@ This is an official starter Turborepo.
 
 Run the following command:
 
-```sh
+```javascript
 npx create-turbo@latest
 ```
 
@@ -36,7 +36,7 @@ This Turborepo has some additional tools already setup for you:
 
 To build all apps and packages, run the following command:
 
-```
+```javascript
 cd my-turborepo
 pnpm build
 ```
@@ -45,7 +45,7 @@ pnpm build
 
 To develop all apps and packages, run the following command:
 
-```
+```javascript
 cd my-turborepo
 pnpm dev
 ```
