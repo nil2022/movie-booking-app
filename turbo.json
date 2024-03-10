@@ -1,6 +1,5 @@
 {
   "$schema": "https://turbo.build/schema.json",
-  "globalEnv": ["PORT"],
   "pipeline": {
     "build": {
       "dependsOn": ["^build"],
@@ -13,7 +12,7 @@
       "cache": false,
       "persistent": true
     },
-    "preview": {
+    "start": {
       "dependsOn": ["^build"],
       "inputs": ["dist/**"]
     }

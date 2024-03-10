@@ -7,7 +7,7 @@ export default defineConfig(async ({ mode }) => {
 
   return {
     server: {
-      port: 3000,
+      port: env.VITE_CLIENT_PORT,
       // proxy: {
       //   "/api/v1": {
       //     target: `${env.VITE_CRM_BACKEND_URL}`,
@@ -15,13 +15,14 @@ export default defineConfig(async ({ mode }) => {
       //   },
       // },
       cors:{
-        origin: `${env.VITE_CORS_ORIGIN}` || 'http://localhost:3001',
+        origin: `${env.VITE_CORS_ORIGIN}` || '*',
         credentials: true,
       }
     },
     build: {
-      outDir: "dist",
+      outDir: "dist",     
     },
+
     plugins: [react()],
   };
 });

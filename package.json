@@ -2,10 +2,10 @@
   "name": "movie-booking-app",
   "private": true,
   "scripts": {
-    "build": "turbo run build",
-    "start": "turbo run preview",
-    "dev": "dotenv -- turbo run dev",
-    "lint": "turbo run lint",
+    "build": "dotenv -- turbo run build --filter client",
+    "start": "turbo run start --filter client --filter server",
+    "dev": "dotenv -- turbo run dev --filter client --filter server",
+    "lint": "turbo run lint --filter client --filter server",
     "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },
   "devDependencies": {
@@ -19,8 +19,7 @@
   },
   "packageManager": "yarn@1.22.21",
   "workspaces": [
-    "apps/*",
-    "packages/*"
+    "apps/*"
   ],
   "dependencies": {
     "dotenv-cli": "^7.4.0"
