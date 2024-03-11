@@ -14,15 +14,14 @@ export default defineConfig(async ({ mode }) => {
       //     changeOrigin: true,
       //   },
       // },
-      cors:{
-        origin: `${env.VITE_CORS_ORIGIN}` || '*',
-        credentials: true,
-      }
+      // cors:{
+      //   origin: `${env.VITE_CORS_ORIGIN}` || '*',
+      //   credentials: true,
+      // }
     },
-    build: {
-      outDir: "dist",     
-    },
-
+    // build: {
+    //   outDir: "dist",     
+    // },
     plugins: [react()],
   };
 });

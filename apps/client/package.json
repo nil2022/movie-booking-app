@@ -5,14 +5,20 @@
   "type": "module",
   "scripts": {
     "dev": "vite --host",
-    "build": "vite build",
+    "build": "vite build --outDir ../server/dist --emptyOutDir ",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
-    "start": "dotenv -- vite preview --host"
+    "preview": "dotenv -- vite preview --host --port 3000"
   },
   "dependencies": {
+    "@chakra-ui/react": "^2.8.2",
+    "@emotion/react": "^11.11.4",
+    "@emotion/styled": "^11.11.0",
+    "axios": "^1.6.7",
     "dotenv-cli": "^7.4.1",
+    "framer-motion": "^11.0.8",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.22.3"
   },
   "devDependencies": {
     "@types/react": "^18.2.56",
@@ -26,5 +32,8 @@
     "postcss": "^8.4.35",
     "tailwindcss": "^3.4.1",
     "vite": "^5.1.4"
+  },
+  "exports": {
+    
   }
 }
