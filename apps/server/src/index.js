@@ -13,6 +13,11 @@ app.use(cors({
   origin: process.env.SERVER_CORS_ORIGIN,
   credentials: true
 }))
+app.use(express.static('dist'));
+// app.get('/', (req, res) => {
+//   console.log('Root route')
+//   res.send('./dist/index.html')
+// })
 
 const PORT = process.env.SERVER_PORT || 4000;
 

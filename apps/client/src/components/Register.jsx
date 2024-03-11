@@ -30,6 +30,7 @@ function Register() {
 
             console.log('Response:', response)
         } catch (error) {
+            setLoading(false)
             console.log('Error:', error)
         }
 
