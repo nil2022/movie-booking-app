@@ -14,13 +14,17 @@ export const signup = async (req, res) => {
      const createdUser = await User.findOne({ userId }).select(' -_id -password -__v ')
  
      console.log('User created successfully', createdUser)
-     return res.status(201).json({
-         success: true,
-         message: 'User created successfully',
-         data: createdUser
-     })
+
+     setTimeout(() => {
+        return res.status(201).json({
+            success: true,
+            message: 'User created successfully',
+            data: createdUser
+        })
+     }, 1000);
+     
    } catch (error) {
-        console.log('Error while creating user', error)
+        console.log('Error while creating user:', error)
         return res.status(500).json({
             success: false,
             message: 'Error while creating user',

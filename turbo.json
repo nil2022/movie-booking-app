@@ -13,7 +13,7 @@
       "persistent": true
     },
     "start": {
-      "dependsOn": ["^build"],
+      "dependsOn": ["client#build"],
       "inputs": ["dist/**"]
     }
   }
