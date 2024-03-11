@@ -1,9 +1,4 @@
 {
-    "functions": {
-        "server": {
-            "includeFiles": [
-                "apps/server/**"
-            ]
-        }
-    }
+    [functions]
+    directory = "apps/server/"
 }
