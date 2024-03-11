@@ -5,8 +5,8 @@
   "description": "This is the backend of Movie booking app",
   "type": "module",
   "scripts": {
-    "start": "node -r dotenv/config src/index.js dotenv_config_path=./.env",
-    "dev": "nodemon -r dotenv/config src/index.js dotenv_config_path=./.env"
+    "start": "node -r dotenv/config src/index.js ",
+    "dev": "nodemon -r dotenv/config src/index.js "
   },
   "author": "",
   "license": "ISC",

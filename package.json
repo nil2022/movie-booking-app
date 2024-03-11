@@ -2,7 +2,7 @@
   "name": "movie-booking-app",
   "private": true,
   "scripts": {
-    "build": "dotenv -- turbo run build --filter client",
+    "build": "turbo run build --filter client",
     "start": "turbo run start --filter client --filter server",
     "dev": "dotenv -- turbo run dev --filter client --filter server",
     "lint": "turbo run lint --filter client --filter server",
