@@ -2,11 +2,11 @@
   "name": "movie-booking-app",
   "private": true,
   "scripts": {
-    "build": "turbo run build --filter client",
-    "start": "turbo run start --filter client --filter server",
+    "build": "dotenv -- turbo run build --filter client",
+    "start": "dotenv -- turbo run start --filter client --filter server",
     "dev": "dotenv -- turbo run dev --filter client --filter server",
     "lint": "turbo run lint --filter client --filter server",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\""
+    "format": "prettier --write \"**/*.{js,jsx}\""
   },
   "devDependencies": {
     "@repo/eslint-config": "*",
