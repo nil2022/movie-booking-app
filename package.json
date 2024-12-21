@@ -4,7 +4,7 @@
   "scripts": {
     "build": "dotenv -- turbo run build --filter client",
     "start": "dotenv -- turbo run start --filter server",
-    "dev": "dotenv -- turbo run dev --filter client --filter server",
+    "dev": "dotenv -- turbo run dev --filter client --filter server & nodemon --watch .env --exec turbo run dev --filter client --filter server",
     "lint": "turbo run lint --filter client --filter server",
     "format": "prettier --write \"**/*.{js,jsx}\""
   },
