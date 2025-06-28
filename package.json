@@ -4,25 +4,31 @@
   "scripts": {
     "build": "dotenv -- turbo run build --filter client",
     "start": "dotenv -- turbo run start --filter server",
-    "dev": "dotenv -- turbo run dev --filter client --filter server & nodemon --watch .env --exec turbo run dev --filter client --filter server",
+    "dev": "dotenv -- turbo run dev --filter client --filter server",
+    "dev:legacy": "dotenv -- turbo run dev --filter client & dotenv -- turbo run dev --filter server",
     "lint": "turbo run lint --filter client --filter server",
     "format": "prettier --write \"**/*.{js,jsx}\""
   },
   "devDependencies": {
     "@repo/eslint-config": "*",
     "@repo/typescript-config": "*",
-    "prettier": "^3.2.5",
-    "turbo": "latest"
+    "@tailwindcss/postcss": "^4.1.11",
+    "@types/node": "^24.0.7",
+    "autoprefixer": "^10.4.21",
+    "postcss": "^8.5.6",
+    "prettier": "^3.6.2",
+    "turbo": "^2.5.4",
+    "vitest": "^3.2.4"
   },
   "engines": {
-    "node": ">=18"
+    "node": ">=20.12.0"
   },
-  "packageManager": "yarn@1.22.21",
+  "packageManager": "yarn@4.9.2",
   "workspaces": [
     "apps/*",
     "packages/*"
   ],
   "dependencies": {
-    "dotenv-cli": "^7.4.1"
+    "dotenv-cli": "^8.0.0"
   }
 }
