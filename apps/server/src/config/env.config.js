@@ -34,7 +34,7 @@ const env = cleanEnv(envVariables, {
 	JWT_EXPIRES_IN: str({ default: '2h' }), // 2hours
 
 	// CORS Config
-	CORS_ORIGIN: str({ default: '*' }),
+	CORS_ORIGIN: str(),
 });
 
 export default env;

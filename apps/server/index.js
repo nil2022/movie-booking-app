@@ -1,8 +1,9 @@
 import express from "express";
 import logger from 'morgan';
-import connectDatabase from "../server/src/config/db.config.js";
-import authRoutes from "./src/routes/auth.routes.js";
+import connectDatabase from "#config/db";
+import authRoutes from "#routes/auth";
 import cors from 'cors'
+import env from "#config/env";
 
 const app = express();
 
@@ -10,7 +11,7 @@ app.use(express.json({ limit: '16kb' }));
 app.use(express.urlencoded({ extended: true, limit: '16kb' }));
 app.use(logger('dev'));
 app.use(cors({
-  origin: process.env.SERVER_CORS_ORIGIN,
+  origin: env.CORS_ORIGIN,
   credentials: true
 }))
 app.use(express.static('dist'));
