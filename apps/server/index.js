@@ -1,7 +1,7 @@
 import express from "express";
 import logger from 'morgan';
-import connectDatabase from "./config/dbConnect.js";
-import authRoutes from "./routes/auth.routes.js";
+import connectDatabase from "../server/src/config/db.config.js";
+import authRoutes from "./src/routes/auth.routes.js";
 import cors from 'cors'
 
 const app = express();

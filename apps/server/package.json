@@ -1,29 +1,43 @@
 {
   "name": "server",
-  "private": true,
   "version": "1.0.0",
   "description": "This is the backend of Movie booking app",
+  "main": "index.js",
   "type": "module",
   "scripts": {
-    "start": "node -r dotenv/config src/index.js ",
-    "dev": "nodemon -r dotenv/config src/index.js "
+    "start": "node index.js ",
+    "dev": "nodemon index.js "
   },
-  "author": "",
+  "imports": {
+    "#config/*": "./src/config/*.config.js",
+    "#controllers/*": "./src/controllers/*.controller.js",
+    "#models/*": "./src/models/*.model.js",
+    "#routes/*": "./src/routes/*.route.js",
+    "#utils/*": "./src/utils/*.util.js",
+    "#root/*": "./src/*.js"
+  },
+  "author": "Nilanjan Haldar",
   "license": "ISC",
   "dependencies": {
+    "@dotenvx/dotenvx": "^1.45.1",
     "bcrypt": "^6.0.0",
     "cloudinary": "^2.0.3",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
     "dotenv": "^17.0.0",
+    "envalid": "^8.0.0",
     "express": "^5.1.0",
     "jsonwebtoken": "^9.0.2",
-    "mongoose": "^8.9.5",
+    "mongoose": "^8.16.1",
     "morgan": "^1.10.0",
     "nodemailer": "^7.0.3",
-    "otp-generator": "^4.0.1"
+    "path": "^0.12.7",
+    "url": "^0.11.4"
   },
   "devDependencies": {
     "nodemon": "^3.1.9"
+  },
+  "engines": {
+    "node": ">=20.0.0"
   }
 }
