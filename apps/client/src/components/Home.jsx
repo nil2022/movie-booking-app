@@ -20,7 +20,10 @@ function Home() {
       rating: 4.8,
       duration: "2h 46m",
       image:
-        "https://res.cloudinary.com/nil2022/image/upload/v1751143546/dune-part-two_c118.600_db45k2.webp",
+        "https://res.cloudinary.com/nil2022/image/upload/v1751172933/dune_part_two_ver3_xxlg_yjqxly.jpg",
+      releaseDate: "2024-03-01",
+      mpaaRating: "PG-13",
+      boxOffice: "$714,444,000",
     },
     {
       id: 2,
@@ -29,7 +32,10 @@ function Home() {
       rating: 4.5,
       duration: "2h 56m",
       image:
-        "https://res.cloudinary.com/nil2022/image/upload/v1751143603/images_whugrz.jpg",
+        "https://res.cloudinary.com/nil2022/image/upload/v1751173118/batman_ver7_xxlg_mnn1h5.jpg",
+      releaseDate: "2022-03-04",
+      mpaaRating: "PG-13",
+      boxOffice: "$772,245,583",
     },
     {
       id: 3,
@@ -38,7 +44,10 @@ function Home() {
       rating: 4.3,
       duration: "3h 12m",
       image:
-        "https://res.cloudinary.com/nil2022/image/upload/v1751143648/images_1_dmgsro.jpg",
+        "https://res.cloudinary.com/nil2022/image/upload/v1751172854/avatar_the_way_of_water_ver4_xxlg_xt3ea5.jpg",
+      releaseDate: "2022-12-16",
+      mpaaRating: "PG-13",
+      boxOffice: "$2,320,250,281",
     },
   ];
 
@@ -48,28 +57,88 @@ function Home() {
       title: "Black Panther: Wakanda Forever",
       genre: "Action/Adventure",
       image:
-        "https://res.cloudinary.com/nil2022/image/upload/v1751143710/images_2_yppfxv.jpg",
+        "https://res.cloudinary.com/nil2022/image/upload/v1751173551/black_panther_wakanda_forever_ver2_xxlg_vtbeth.jpg",
+      releaseDate: "2022-11-11",
+      rating: "PG-13",
+      runtime: "2h 41m",
+      boxOffice: "$859,208,836",
     },
     {
       id: 5,
       title: "Top Gun: Maverick",
       genre: "Action/Drama",
       image:
-        "https://res.cloudinary.com/nil2022/image/upload/v1751143745/images_3_e9izpv.jpg",
+        "https://res.cloudinary.com/nil2022/image/upload/v1751173624/top_gun_maverick_ver3_xxlg_hdeaxr.jpg",
+      releaseDate: "2022-05-27",
+      rating: "PG-13",
+      runtime: "2h 11m",
+      boxOffice: "$1,495,696,292",
     },
     {
       id: 6,
       title: "Jurassic World Dominion",
       genre: "Action/Adventure",
       image:
-        "https://res.cloudinary.com/nil2022/image/upload/v1751143822/Jurassic_World_Dominion_Team_Poster_k8lbok.webp",
+        "https://res.cloudinary.com/nil2022/image/upload/v1751173714/jurassic_world_dominion_ver6_xxlg_dmqbef.jpg",
+      releaseDate: "2022-06-10",
+      rating: "PG-13",
+      runtime: "2h 27m",
+      boxOffice: "$1,001,978,080",
     },
     {
       id: 7,
-      title: "Doctor Strange 2",
+      title: "Doctor Strange in the Multiverse of Madness",
       genre: "Action/Fantasy",
       image:
         "https://res.cloudinary.com/nil2022/image/upload/v1751143942/MV5BN2YxZGRjMzYtZjE1ZC00MDI0LThjZmQtZTZmMzVmMmQ2NzBmXkEyXkFqcGc_._V1_FMjpg_UY2500__pawnkb.jpg",
+      releaseDate: "2022-05-06",
+      rating: "PG-13",
+      runtime: "2h 6m",
+      boxOffice: "$955,775,804",
+    },
+    {
+      id: 8,
+      title: "How to Train Your Dragon",
+      genre: "Animation/Adventure",
+      image:
+        "https://res.cloudinary.com/nil2022/image/upload/v1751178135/how_to_train_your_dragon_ver2_xxlg_hehv84.jpg",
+      releaseDate: "2025-06-13",
+      rating: "PG",
+      runtime: "2h 15m",
+      boxOffice: "$84,630,000",
+    },
+    {
+      id: 9,
+      title: "28 Years Later",
+      genre: "Horror/Sci-Fi",
+      image:
+        "https://res.cloudinary.com/nil2022/image/upload/v1751178225/twenty_eight_years_later_xxlg_ha83y7.jpg",
+      releaseDate: "2025-06-20",
+      rating: "R",
+      runtime: "1h 59m",
+      boxOffice: "$30,000,000",
+    },
+    {
+      id: 10,
+      title: "F1: The Movie",
+      genre: "Action/Drama",
+      image:
+        "https://res.cloudinary.com/nil2022/image/upload/v1751178273/f_one_xxlg_jkfbo3.jpg",
+      releaseDate: "2025-06-27",
+      rating: "PG-13",
+      runtime: "2h 0m",
+      boxOffice: "$50,000,000",
+    },
+    {
+      id: 11,
+      title: "A Minecraft Movie",
+      genre: "Adventure/Fantasy",
+      image:
+        "https://res.cloudinary.com/nil2022/image/upload/v1751178325/minecraft_the_movie_ver3_xxlg_gou3io.jpg",
+      releaseDate: "2025-04-04",
+      rating: "PG",
+      runtime: "1h 42m",
+      boxOffice: "$100,000,000",
     },
   ];
 
@@ -164,11 +233,12 @@ function Home() {
             View All
           </Button>
         </Flex>
-        <Flex wrap="wrap" gap={8}>
+        {/* HERO Section */}
+        <Flex wrap="wrap" gap={8} md="space-between">
           {featuredMovies.map((movie) => (
             <Box
               key={movie.id}
-              w={{ base: "100%", md: "calc(33.33% - 16px)" }}
+              w={{ base: "100%", lg: "30%" }}
               position="relative"
               overflow="hidden"
               rounded="lg"
@@ -224,18 +294,21 @@ function Home() {
             View All
           </Button>
         </Flex>
-        <Flex wrap="wrap" gap={6}>
+
+        <Flex wrap="wrap" gap={6} md="space-between">
           {nowShowing.map((movie) => (
             <Box
               key={movie.id}
-              w={{ base: "calc(50% - 12px)", md: "calc(25% - 12px)" }}
+              w={{ base: "100%", md: "30%" }}
               position="relative"
             >
-              <Box position="relative" overflow="hidden" rounded="lg" mb={3}>
+              <Box position="relative" overflow="hidden" rounded="lg" mb={2}>
                 <Image
                   src={movie.image}
                   alt={movie.title}
                   w="full"
+                  h= {{ base: "full", md: "600px" }}
+                  objectFit="contain"
                   transition="transform 0.3s"
                   _groupHover={{ transform: "scale(1.05)" }}
                 />
@@ -268,19 +341,6 @@ function Home() {
           ))}
         </Flex>
       </Box>
-
-      {/* <Box py={16} px={{ base: 4, md: 8, lg: 32 }}>
-        <Heading as="h2" size="2xl" mb={10}>Coming Soon</Heading>
-        <Flex overflowX="auto" pb={6} gap={6}>
-          {[1, 2, 3, 4, 5].map(item => (
-            <Box key={item} w="48px" flexShrink={0} bg="gray.800" rounded="lg" p={4} textAlign="center">
-              <Icon as={FiCalendar} color="red.600" boxSize={10} mb={3} />
-              <Text fontWeight="semibold">May {15 + item}</Text>
-              <Text fontSize="sm" color="gray.400">New Releases</Text>
-            </Box>
-          ))}
-        </Flex>
-      </Box> */}
 
       <Box py={16} px={{ base: 4, md: 8, lg: 32 }}>
         <Heading as="h2" size="2xl" mb={10}>
