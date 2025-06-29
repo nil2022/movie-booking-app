@@ -145,14 +145,7 @@ function Home() {
   return (
     <Box bg="gray.900" color="white" minH="100vh">
       <Box position="relative" h="100vh">
-        <Box
-          position="absolute"
-          top="0"
-          left="0"
-          w="full"
-          h="full"
-          bg="blackAlpha.600"
-        />
+        {/* Background Image - this should be first */}
         <Box
           position="absolute"
           top="0"
@@ -163,8 +156,18 @@ function Home() {
           bgSize="cover"
           bgPosition="center"
         />
+        {/* Overlay - this should be second (on top of the image) */}
         <Box
-          position="relative"
+          position="absolute"
+          top="0"
+          left="0"
+          w="full"
+          h="full"
+          bg="blackAlpha.700" // Increased opacity for better visibility
+        />
+        {/* Content - this remains on top of everything */}
+        <Box
+          position="relative" // Keep this relative so its content is above the absolute elements
           h="full"
           display="flex"
           alignItems="center"
@@ -233,15 +236,25 @@ function Home() {
             View All
           </Button>
         </Flex>
+
         {/* HERO Section */}
-        <Flex wrap="wrap" gap={8} md="space-between">
+        <Flex wrap="wrap" gap={8} justify="space-between">
           {featuredMovies.map((movie) => (
             <Box
               key={movie.id}
-              w={{ base: "100%", lg: "30%" }}
+              flex="1 1 30%"
+              minW={{ base: "100%", lg: "30%" }}
+              maxW={{ base: "100%", lg: "32%" }}
               position="relative"
               overflow="hidden"
               rounded="lg"
+              shadow="md"
+              transition="transform 0.5s"
+              _hover={{ transform: "scale(1.05)" }}
+              cursor="pointer"
+              _groupHover={{ transform: "scale(1.05)" }}
+              display="flex"
+              flexDirection="column"
             >
               <Image
                 src={movie.image}
@@ -295,20 +308,39 @@ function Home() {
           </Button>
         </Flex>
 
-        <Flex wrap="wrap" gap={6} md="space-between">
+        {/* NOW SHOWING Section */}
+        <Flex wrap="wrap" gap={6} justify="flex-start">
           {nowShowing.map((movie) => (
             <Box
               key={movie.id}
-              w={{ base: "100%", md: "30%" }}
+              // --- MODIFIED WIDTH PROPERTY HERE ---
+              // On base (mobile), take full width
+              // On md (medium screens), take slightly less than 1/3 to accommodate the gap
+              // On lg (large screens and up), take slightly less than 1/3
+              w={{
+                base: "100%",
+                md: "calc(33.33% - 16px)",
+                lg: "calc(33.33% - 16px)",
+              }}
+              // --- END MODIFIED WIDTH PROPERTY ---
               position="relative"
+              overflow="hidden"
+              rounded="lg"
+              shadow="md"
+              transition="transform 0.5s"
+              _hover={{ transform: "scale(1.05)" }}
+              cursor="pointer"
+              role="group"
+              display="flex"
+              flexDirection="column"
             >
               <Box position="relative" overflow="hidden" rounded="lg" mb={2}>
                 <Image
                   src={movie.image}
                   alt={movie.title}
                   w="full"
-                  h= {{ base: "full", md: "600px" }}
-                  objectFit="contain"
+                  h={{ base: "full", md: "400px", lg: "500px" }}
+                  objectFit="cover"
                   transition="transform 0.3s"
                   _groupHover={{ transform: "scale(1.05)" }}
                 />
