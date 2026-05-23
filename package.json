@@ -17,7 +17,7 @@
     "autoprefixer": "^10.4.21",
     "postcss": "^8.5.10",
     "prettier": "^3.6.2",
-    "turbo": "^2.5.4",
+    "turbo": "^2.9.14",
     "vitest": "^3.2.4"
   },
   "engines": {
