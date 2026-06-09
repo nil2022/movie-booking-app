@@ -18,7 +18,7 @@
     "postcss": "^8.5.10",
     "prettier": "^3.6.2",
     "turbo": "^2.9.14",
-    "vitest": "^3.2.4"
+    "vitest": "^3.2.6"
   },
   "engines": {
     "node": ">=20.12.0"
