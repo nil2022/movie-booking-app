@@ -14,7 +14,8 @@ connectDatabase()
 	})
 	/** When connection failed to connect, it will throw an error */
 	.catch((error) => {
-		console.log('Could not connect to database', error);
+		console.error('Could not connect to database', error);
+		process.exit(1);
 	});
 
 function shutdown(signal) {

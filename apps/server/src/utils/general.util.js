@@ -1,4 +1,3 @@
-import { Model } from 'mongoose';
 import { MongoClient } from 'mongodb';
 import env from '#config/env';
 
@@ -12,9 +11,6 @@ import env from '#config/env';
  * @return {Object} The JSON response object
  */
 export const sendResponse = (res, statusCode, data, message, token) => {
-	// if (data instanceof Model) {
-	// 	data = data.toJSON();
-	// }
 	const response = {
 		status: statusCode < 400 ? true : false,
 		...(message ? { message } : {}),
@@ -37,8 +33,6 @@ export const sendResponse = (res, statusCode, data, message, token) => {
 	};
 	return res.status(statusCode).json(response);
 };
-
-
 
 // Connection URL — replace with your own as needed
 const url = env.DB_URL;

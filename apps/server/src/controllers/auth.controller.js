@@ -51,3 +51,21 @@ export const login = async (req, res) => {
     }
   }
 };
+
+export const getUser = async (req, res) => {
+  try {
+    const user = req.user;
+    const data = await User.findOne({ email: user?.payload?.email });
+    if(data) {
+      sendResponse(res, httpStatus.OK, data, 'User found successfully', null);
+    } else {
+      sendResponse(res, httpStatus.NOT_FOUND, null, 'User not found', null);
+    }
+  } catch (error) {
+    throw {
+      status: false,
+      message: 'Error while getting user',
+      httpStatus: httpStatus.INTERNAL_SERVER_ERROR
+    }
+  }
+};

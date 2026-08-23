@@ -1,6 +1,6 @@
 import { Router } from 'express';
-import { login, signup } from '#controllers/auth';
-import { validateUserData } from '#middlewares/auth';
+import { getUser, login, signup } from '#controllers/auth';
+import { validateUserData, verifyToken } from '#middlewares/auth';
 
 const authRouter = Router();
 
@@ -9,5 +9,6 @@ const authRouter = Router();
 authRouter.post('/signup', [validateUserData], signup);
 /** Sigin API **/
 authRouter.post('/login', login);
+authRouter.get('/:id', verifyToken, getUser);
 
 export default authRouter;
