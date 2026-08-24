@@ -8,8 +8,23 @@ import {
   Stack,
   Flex,
   Icon,
+  Link,
+  ChakraProvider, // Added ChakraProvider
+  extendTheme // Added extendTheme for basic theme setup
 } from "@chakra-ui/react";
-import { FiPlay, FiInfo, FiStar, FiClock, FiCalendar } from "react-icons/fi";
+import { FiPlay, FiInfo, FiStar, FiClock, FiCalendar, FiFacebook, FiTwitter, FiInstagram, FiYoutube } from "react-icons/fi";
+
+// Extend the default Chakra UI theme (optional, but good practice)
+// This is a minimal theme setup. More complex apps would have a dedicated theme file.
+const theme = extendTheme({
+  styles: {
+    global: {
+      body: {
+        fontFamily: "Inter, sans-serif", // Set font to Inter
+      },
+    },
+  },
+});
 
 function Home() {
   const featuredMovies = [
@@ -144,15 +159,9 @@ function Home() {
 
   return (
     <Box bg="gray.900" color="white" minH="100vh">
+      {/* Hero Section */}
       <Box position="relative" h="100vh">
-        <Box
-          position="absolute"
-          top="0"
-          left="0"
-          w="full"
-          h="full"
-          bg="blackAlpha.600"
-        />
+        {/* Background Image - this should be first */}
         <Box
           position="absolute"
           top="0"
@@ -163,8 +172,18 @@ function Home() {
           bgSize="cover"
           bgPosition="center"
         />
+        {/* Overlay - this should be second (on top of the image) */}
         <Box
-          position="relative"
+          position="absolute"
+          top="0"
+          left="0"
+          w="full"
+          h="full"
+          bg="blackAlpha.700" // Increased opacity for better visibility
+        />
+        {/* Content - this remains on top of everything */}
+        <Box
+          position="relative" // Keep this relative so its content is above the absolute elements
           h="full"
           display="flex"
           alignItems="center"
@@ -224,6 +243,7 @@ function Home() {
         </Box>
       </Box>
 
+      {/* Featured Movies Section */}
       <Box py={16} px={{ base: 4, md: 8, lg: 32 }}>
         <Flex justify="space-between" align="center" mb={10}>
           <Heading as="h2" size="2xl">
@@ -233,15 +253,24 @@ function Home() {
             View All
           </Button>
         </Flex>
-        {/* HERO Section */}
-        <Flex wrap="wrap" gap={8} md="space-between">
+
+        <Flex wrap="wrap" gap={8} justify="space-between">
           {featuredMovies.map((movie) => (
             <Box
               key={movie.id}
-              w={{ base: "100%", lg: "30%" }}
+              flex="1 1 30%"
+              minW={{ base: "100%", lg: "30%" }}
+              maxW={{ base: "100%", lg: "32%" }}
               position="relative"
               overflow="hidden"
               rounded="lg"
+              shadow="md"
+              transition="transform 0.5s"
+              _hover={{ transform: "scale(1.05)" }}
+              cursor="pointer"
+              _groupHover={{ transform: "scale(1.05)" }}
+              display="flex"
+              flexDirection="column"
             >
               <Image
                 src={movie.image}
@@ -285,6 +314,7 @@ function Home() {
         </Flex>
       </Box>
 
+      {/* Now Showing Section */}
       <Box py={16} px={{ base: 4, md: 8, lg: 32 }} bg="gray.800">
         <Flex justify="space-between" align="center" mb={10}>
           <Heading as="h2" size="2xl">
@@ -295,20 +325,33 @@ function Home() {
           </Button>
         </Flex>
 
-        <Flex wrap="wrap" gap={6} md="space-between">
+        <Flex wrap="wrap" gap={6} justify="flex-start">
           {nowShowing.map((movie) => (
             <Box
               key={movie.id}
-              w={{ base: "100%", md: "30%" }}
+              w={{
+                base: "100%",
+                md: "calc(33.33% - 16px)",
+                lg: "calc(33.33% - 16px)",
+              }}
               position="relative"
+              overflow="hidden"
+              rounded="lg"
+              shadow="md"
+              transition="transform 0.5s"
+              _hover={{ transform: "scale(1.05)" }}
+              cursor="pointer"
+              role="group"
+              display="flex"
+              flexDirection="column"
             >
               <Box position="relative" overflow="hidden" rounded="lg" mb={2}>
                 <Image
                   src={movie.image}
                   alt={movie.title}
                   w="full"
-                  h= {{ base: "full", md: "600px" }}
-                  objectFit="contain"
+                  h={{ base: "full", md: "400px", lg: "500px" }}
+                  objectFit="cover"
                   transition="transform 0.3s"
                   _groupHover={{ transform: "scale(1.05)" }}
                 />
@@ -342,6 +385,7 @@ function Home() {
         </Flex>
       </Box>
 
+      {/* Coming Soon Section */}
       <Box py={16} px={{ base: 4, md: 8, lg: 32 }}>
         <Heading as="h2" size="2xl" mb={10}>
           Coming Soon
@@ -373,6 +417,7 @@ function Home() {
         </Flex>
       </Box>
 
+      {/* Newsletter Signup Section */}
       <Box
         py={20}
         px={{ base: 4, md: 8, lg: 32 }}
@@ -402,8 +447,128 @@ function Home() {
           </Button>
         </Flex>
       </Box>
+
+      {/* Footer Section */}
+      <Box
+        bg="gray.900"
+        color="white"
+        py={10}
+        px={{ base: 4, md: 8, lg: 32 }}
+        borderTop="1px"
+        borderColor="gray.700"
+      >
+        <Flex
+          direction={{ base: "column", md: "row" }}
+          justify="space-between"
+          align="flex-start"
+          gap={8}
+        >
+          {/* Company Info / Logo */}
+          <Box flexShrink={0}>
+            <Heading as="h3" size="lg" mb={4}>
+              CineBook
+            </Heading>
+            <Text fontSize="md" maxW="300px">
+              Your ultimate destination for booking movie tickets and discovering
+              the latest films.
+            </Text>
+            <Flex mt={4} gap={4}>
+              <Link href="#" isExternal>
+                <Icon as={FiFacebook} boxSize={6} _hover={{ color: "red.600" }} transition="color 0.2s" />
+              </Link>
+              <Link href="#" isExternal>
+                <Icon as={FiTwitter} boxSize={6} _hover={{ color: "red.600" }} transition="color 0.2s" />
+              </Link>
+              <Link href="#" isExternal>
+                <Icon as={FiInstagram} boxSize={6} _hover={{ color: "red.600" }} transition="color 0.2s" />
+              </Link>
+              <Link href="#" isExternal>
+                <Icon as={FiYoutube} boxSize={6} _hover={{ color: "red.600" }} transition="color 0.2s" />
+              </Link>
+            </Flex>
+          </Box>
+
+          {/* Navigation Links */}
+          <Flex
+            direction={{ base: "column", sm: "row" }}
+            gap={{ base: 6, md: 16 }}
+            wrap="wrap"
+          >
+            <Box>
+              <Heading as="h4" size="md" mb={4}>
+                Quick Links
+              </Heading>
+              <Stack spacing={2}>
+                <Link href="#" _hover={{ color: "red.600" }}>
+                  Now Showing
+                </Link>
+                <Link href="#" _hover={{ color: "red.600" }}>
+                  Coming Soon
+                </Link>
+                <Link href="#" _hover={{ color: "red.600" }}>
+                  Theaters
+                </Link>
+                <Link href="#" _hover={{ color: "red.600" }}>
+                  Promotions
+                </Link>
+              </Stack>
+            </Box>
+            <Box>
+              <Heading as="h4" size="md" mb={4}>
+                Support
+              </Heading>
+              <Stack spacing={2}>
+                <Link href="#" _hover={{ color: "red.600" }}>
+                  Contact Us
+                </Link>
+                <Link href="#" _hover={{ color: "red.600" }}>
+                  FAQs
+                </Link>
+                <Link href="#" _hover={{ color: "red.600" }}>
+                  Privacy Policy
+                </Link>
+                <Link href="#" _hover={{ color: "red.600" }}>
+                  Terms of Service
+                </Link>
+              </Stack>
+            </Box>
+            <Box>
+              <Heading as="h4" size="md" mb={4}>
+                About Us
+              </Heading>
+              <Stack spacing={2}>
+                <Link href="#" _hover={{ color: "red.600" }}>
+                  Our Story
+                </Link>
+                <Link href="#" _hover={{ color: "red.600" }}>
+                  Careers
+                </Link>
+                <Link href="#" _hover={{ color: "red.600" }}>
+                  Blog
+                </Link>
+              </Stack>
+            </Box>
+          </Flex>
+        </Flex>
+
+        {/* Copyright */}
+        <Box textAlign="center" mt={10} pt={6} borderTop="1px" borderColor="gray.700">
+          <Text fontSize="sm" color="gray.500">
+            &copy; {new Date().getFullYear()} CineBook. All rights reserved.
+          </Text>
+        </Box>
+      </Box>
     </Box>
   );
 }
 
-export default Home;
+// Main App component to wrap Home with ChakraProvider
+function App() {
+  return (
+    <ChakraProvider theme={theme}>
+      <Home />
+    </ChakraProvider>
+  );
+}
+
+export default App; // Export App as the default component

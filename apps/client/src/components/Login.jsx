@@ -75,7 +75,9 @@ function Login() {
             localStorage.setItem("token", response.data.token);
             localStorage.setItem("user", JSON.stringify(response.data.user));
 
-            navigate("/");
+            setTimeout(() => {
+                navigate("/");
+            }, 1500);
         } catch (error) {
             let errorMessage = "An error occurred during login";
             
