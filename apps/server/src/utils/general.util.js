@@ -1,4 +1,5 @@
 import { MongoClient } from 'mongodb';
+import jwt from 'jsonwebtoken';
 import env from '#config/env';
 
 /**
@@ -32,6 +33,26 @@ export const sendResponse = (res, statusCode, data, message, token) => {
 		...(token ? { token } : {}),
 	};
 	return res.status(statusCode).json(response);
+};
+
+/** Auth cookie (HttpOnly so client-side JS / XSS can never read the session token) */
+export const AUTH_COOKIE_NAME = 'token';
+
+const authCookieBaseOptions = () => ({
+	httpOnly: true,
+	// SameSite=None is only accepted by browsers together with Secure
+	secure: env.NODE_ENV === 'production' || env.COOKIE_SAMESITE === 'none',
+	sameSite: env.COOKIE_SAMESITE,
+	path: '/',
+});
+
+export const setAuthCookie = (res, token) => {
+	const { exp } = jwt.decode(token);
+	res.cookie(AUTH_COOKIE_NAME, token, { ...authCookieBaseOptions(), maxAge: exp * 1000 - Date.now() });
+};
+
+export const clearAuthCookie = (res) => {
+	res.clearCookie(AUTH_COOKIE_NAME, authCookieBaseOptions());
 };
 
 // Connection URL — replace with your own as needed

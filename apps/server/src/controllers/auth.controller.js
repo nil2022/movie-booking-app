@@ -1,6 +1,6 @@
 import bcrypt from 'bcrypt';
 import User from '#models/user';
-import { sendResponse } from '#utils/general';
+import { clearAuthCookie, sendResponse, setAuthCookie } from '#utils/general';
 import httpStatus from 'http-status';
 
 const MONGO_DUPLICATE_KEY = 11000;
@@ -45,11 +45,18 @@ export const login = async (req, res) => {
 		}
 
 		const token = await user.generateAccessToken();
-		return sendResponse(res, httpStatus.OK, user, 'Login successful', token);
+		// Token travels only in an HttpOnly cookie, it is never exposed to JavaScript
+		setAuthCookie(res, token);
+		return sendResponse(res, httpStatus.OK, user, 'Login successful', null);
 	} catch (error) {
 		console.error('Error while login user:', error);
 		return sendResponse(res, httpStatus.INTERNAL_SERVER_ERROR, null, 'Error while login user');
 	}
+};
+
+export const logout = (req, res) => {
+	clearAuthCookie(res);
+	return sendResponse(res, httpStatus.OK, null, 'Logout successful', null);
 };
 
 export const getUser = async (req, res) => {
@@ -59,7 +66,8 @@ export const getUser = async (req, res) => {
 			return sendResponse(res, httpStatus.NOT_FOUND, null, 'User not found', null);
 		}
 		// A user may only read their own profile
-		if (req.params.id !== String(data._id) && req.params.id !== data.userId) {
+		// `me` is an alias for the authenticated user
+		if (req.params.id !== 'me' && req.params.id !== String(data._id) && req.params.id !== data.userId) {
 			return sendResponse(res, httpStatus.FORBIDDEN, null, 'Forbidden', null);
 		}
 		return sendResponse(res, httpStatus.OK, data, 'User found successfully', null);

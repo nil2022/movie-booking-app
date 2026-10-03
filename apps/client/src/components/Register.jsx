@@ -1,6 +1,6 @@
 import React from "react";
 import { Button, useToast } from '@chakra-ui/react';
-import axios from "axios";
+import api from "../api";
 import { Link } from 'react-router-dom';
 
 function Register() {
@@ -77,11 +77,10 @@ function Register() {
             return;
         }
 
-        const backendUrl = import.meta.env.VITE_CRM_BACKEND_URL;
         setLoading(true);
 
         try {
-            await axios.post(`${backendUrl}/api/v1/auth/signup`, values);
+            await api.post("/api/v1/auth/signup", values);
             
             toast({
                 title: "Registration successful",

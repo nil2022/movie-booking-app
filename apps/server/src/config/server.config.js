@@ -1,6 +1,7 @@
 import express from 'express';
 import logger from 'morgan';
 import helmet from 'helmet';
+import cookieParser from 'cookie-parser';
 import { rateLimit } from 'express-rate-limit';
 import authRoutes from '#routes/auth';
 import cors from 'cors';
@@ -30,6 +31,7 @@ app.use(
 	})
 );
 
+app.use(cookieParser());
 app.use(express.json({ limit: '16kb' }));
 // `extended: false` -> no nested objects from query strings (blocks `email[$ne]=x` style NoSQL injection)
 app.use(express.urlencoded({ extended: false, limit: '16kb' }));
@@ -43,11 +45,28 @@ app.use(
 		origin: allowedOrigins,
 		credentials: true,
 		methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-		allowedHeaders: ['Content-Type', 'Authorization'],
+		allowedHeaders: ['Content-Type', 'X-Requested-With'],
 		preflightContinue: false,
 		optionsSuccessStatus: httpStatus.NO_CONTENT,
 	})
 );
+
+/**
+ * CSRF protection for cookie auth: every state-changing request must come from an allowed origin
+ * and carry a custom header, which browsers only allow cross-origin after a successful CORS preflight.
+ */
+const SAFE_METHODS = new Set(['GET', 'HEAD', 'OPTIONS']);
+app.use((req, res, next) => {
+	if (SAFE_METHODS.has(req.method)) return next();
+	const { origin } = req.headers;
+	if (origin && !allowedOrigins.includes(origin)) {
+		return sendResponse(res, httpStatus.FORBIDDEN, null, 'Origin not allowed');
+	}
+	if (req.headers['x-requested-with'] !== 'XMLHttpRequest') {
+		return sendResponse(res, httpStatus.FORBIDDEN, null, 'Missing X-Requested-With header');
+	}
+	next();
+});
 
 app.use('/api/v1/auth', authRoutes);
 

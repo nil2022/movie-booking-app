@@ -1,6 +1,6 @@
 import React from "react";
 import { Button, useToast } from '@chakra-ui/react';
-import axios from "axios";
+import api from "../api";
 import { Link, useNavigate } from "react-router-dom";
 
 function Login() {
@@ -58,11 +58,10 @@ function Login() {
             return;
         }
 
-        const backendUrl = import.meta.env.VITE_CRM_BACKEND_URL;
         setLoading(true);
 
         try {
-            const response = await axios.post(`${backendUrl}/api/v1/auth/login`, values);
+            await api.post("/api/v1/auth/login", values);
             
             toast({
                 title: "Login successful",
@@ -72,8 +71,13 @@ function Login() {
                 isClosable: true,
             });
 
-            localStorage.setItem("token", response.data.token);
-            localStorage.setItem("user", JSON.stringify(response.data.user));
+            // The session token is an HttpOnly cookie now; drop anything stored by older versions
+            try {
+                localStorage.removeItem("token");
+                localStorage.removeItem("user");
+            } catch {
+                /* storage unavailable */
+            }
 
             setTimeout(() => {
                 navigate("/");

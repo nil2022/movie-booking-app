@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import { rateLimit } from 'express-rate-limit';
 import httpStatus from 'http-status';
-import { getUser, login, signup } from '#controllers/auth';
+import { getUser, login, logout, signup } from '#controllers/auth';
 import { validateLoginData, validateUserData, verifyToken } from '#middlewares/auth';
 import { sendResponse } from '#utils/general';
 
@@ -21,6 +21,9 @@ const credentialsLimiter = rateLimit({
 authRouter.post('/signup', credentialsLimiter, [validateUserData], signup);
 /** Sigin API **/
 authRouter.post('/login', credentialsLimiter, validateLoginData, login);
+/** Logout API (clears the HttpOnly auth cookie) **/
+authRouter.post('/logout', logout);
+/** Current user: GET /me (or own _id / userId) **/
 authRouter.get('/:id', verifyToken, getUser);
 
 export default authRouter;
