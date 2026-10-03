@@ -53,8 +53,8 @@ function Register() {
         if (!values.password) {
             newErrors.password = "Password is required";
             valid = false;
-        } else if (values.password.length < 6) {
-            newErrors.password = "Password must be at least 6 characters";
+        } else if (values.password.length < 8) {
+            newErrors.password = "Password must be at least 8 characters";
             valid = false;
         }
 
@@ -81,7 +81,7 @@ function Register() {
         setLoading(true);
 
         try {
-            const response = await axios.post(`${backendUrl}/api/v1/auth/signup`, values);
+            await axios.post(`${backendUrl}/api/v1/auth/signup`, values);
             
             toast({
                 title: "Registration successful",
