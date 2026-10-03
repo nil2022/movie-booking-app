@@ -3,6 +3,7 @@ import { sendResponse } from '#utils/general';
 import jwt from 'jsonwebtoken';
 import httpStatus from 'http-status';
 import chalk from 'chalk';
+import { AUTH_COOKIE_NAME } from '#utils/general';
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const USER_ID_REGEX = /^[a-zA-Z0-9_.-]{3,30}$/;
@@ -50,9 +51,9 @@ export const validateLoginData = (req, res, next) => {
 };
 
 export const verifyToken = async (req, res, next) => {
-	const [scheme, token] = (req.headers['authorization'] ?? '').split(' ');
-	if (scheme?.toLowerCase() !== 'bearer' || !token) {
-		console.log(chalk.red('Bearer token not found in request headers.'));
+	const token = req.cookies?.[AUTH_COOKIE_NAME];
+	if (typeof token !== 'string' || !token) {
+		console.log(chalk.red('Auth cookie not found in request.'));
 		return sendResponse(res, httpStatus.UNAUTHORIZED, null, 'Invalid session, Please login again.');
 	}
 	let decoded;

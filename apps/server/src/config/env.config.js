@@ -25,6 +25,8 @@ const env = cleanEnv(envVariables, {
 	SERVER_PORT: port(),
 	BACKEND_URL: str(),
 	NODE_ENV: str({ choices: ['dev', 'production'], default: 'dev' }),
+	// SameSite attribute of the auth cookie. Use 'none' only if the client and API live on different sites
+	COOKIE_SAMESITE: str({ choices: ['lax', 'strict', 'none'], default: 'lax' }),
 	// Number of reverse-proxy hops in front of the app (needed for correct client IP / rate limiting)
 	TRUST_PROXY: num({ default: 0 }),
 
