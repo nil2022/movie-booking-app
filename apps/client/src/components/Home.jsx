@@ -440,7 +440,7 @@ function Home() {
           <input
             type="email"
             placeholder="Your email address"
-            className="p-3 rounded text-gray-900 flex-grow"
+            className="p-3 rounded text-gray-900 grow"
           />
           <Button colorScheme="blackAlpha" size="lg">
             Subscribe
