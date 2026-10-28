@@ -36,7 +36,7 @@
     "mongodb": "^6.17.0",
     "mongoose": "^8.24.1",
     "morgan": "^1.12.1",
-    "nodemailer": "^10.0.14"
+    "nodemailer": "^10.1.4"
   },
   "devDependencies": {
     "prettier": "^3.6.2"
